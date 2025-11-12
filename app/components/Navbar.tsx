@@ -19,7 +19,12 @@ export default function Navbar() {
         </Link>
 
         <nav className="flex items-center gap-3">
-          <Link href="/dashboard" className={`px-3 py-2 rounded-md ${pathname === "/dashboard" ? "bg-slate-100" : "hover:bg-slate-50"}`}>
+          <Link
+            href="/dashboard"
+            className={`px-3 py-2 rounded-md ${
+              pathname === "/dashboard" ? "bg-slate-100" : "hover:bg-slate-50"
+            }`}
+          >
             Dashboard
           </Link>
 
@@ -28,8 +33,14 @@ export default function Navbar() {
           </Link>
 
           {/* fallback simple CTA if shadcn Button not present */}
-          <Link href="/login" className="inline-block px-3 py-1 rounded-md bg-indigo-600 text-white">
+          <Link
+            href="/login"
+            className="inline-block px-3 py-1 rounded-md bg-indigo-600 text-white"
+          >
             Sign in
+          </Link>
+          <Link href="/signup" className="px-3 py-1 rounded-md bg-accent">
+            Sign up
           </Link>
         </nav>
       </div>

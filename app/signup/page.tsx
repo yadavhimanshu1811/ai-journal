@@ -14,6 +14,7 @@ export default function SignupPage() {
 
     const res = await fetch("/api/auth/signup", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
 
@@ -29,7 +30,7 @@ export default function SignupPage() {
 
   return (
     <div className="max-w-sm mx-auto space-y-6">
-      <h1 className="text-2xl font-bold">Signup</h1>
+      <h1 className="text-2xl font-bold">Create an Account</h1>
 
       <form onSubmit={handleSignup} className="space-y-4">
         <div>
@@ -51,7 +52,7 @@ export default function SignupPage() {
         </div>
 
         <button className="w-full bg-primary text-primary-foreground py-2 rounded-md">
-          Create Account
+          Sign Up
         </button>
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
