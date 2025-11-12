@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
+import { SessionProvider } from "next-auth/react";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  // later: add SessionProvider, ThemeProvider, Toast, etc.
-  return <>{children}</>;
+  return <SessionProvider>{children}</SessionProvider>;
 }
