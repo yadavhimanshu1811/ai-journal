@@ -1,5 +1,8 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthOptions } from "next-auth";
+import bcrypt from "bcryptjs";
+import User from "@/app/models/User";
+import { connectToDatabase } from "./db";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -10,14 +13,13 @@ export const authOptions: NextAuthOptions = {
         password: {},
       },
       async authorize(credentials) {
-        if (
-          credentials?.email === "test@test.com" &&
-          credentials?.password === "123"
-        ) {
-          return { id: "1", email: "test@test.com" };
+            await connectToDatabase();
+            const user = await User.findOne({ email: credentials?.email });
+            if (!user) return null;
+            const isValid = await bcrypt.compare(credentials!.password, user.password);
+            if (!isValid) return null;
+            return { id: user._id.toString(), email: user.email };
         }
-        return null;
-      },
     }),
   ],
   session: {
