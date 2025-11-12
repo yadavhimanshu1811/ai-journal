@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Entry from "@/models/Entry";
 import { connectToDatabase } from "@/lib/db";
+import { summarizeText, detectMood } from "@/lib/huggingface";
 
 export async function POST(request: Request) {
   try {
@@ -18,9 +19,15 @@ export async function POST(request: Request) {
 
     await connectToDatabase();
 
+    // AI tasks
+    const summary = await summarizeText(content);
+    const mood = await detectMood(content);
+
     const entry = await Entry.create({
       userId: session.user?.email,
       content,
+      summary,
+      mood,
     });
 
     return NextResponse.json({ entry }, { status: 201 });
