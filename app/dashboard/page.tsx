@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Link from "next/link";
+import ListDisplay from "../components/ListDisplay";
 
 export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
@@ -30,6 +31,7 @@ export default async function DashboardPage() {
       >
         Create New Entry
       </Link>
+      <ListDisplay/>
     </div>
   );
 }
