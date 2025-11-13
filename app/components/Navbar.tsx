@@ -14,7 +14,6 @@ export default function Navbar() {
   return (
     <header className="w-full backdrop-blur-md bg-white/70 border-b border-slate-200 sticky top-0 z-50 shadow-sm">
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-        
         {/* Brand */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="rounded-xl bg-gradient-to-br from-indigo-500 to-pink-500 text-white w-10 h-10 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
@@ -26,7 +25,6 @@ export default function Navbar() {
         </Link>
 
         <nav className="flex items-center gap-2">
-
           <Link
             href="/dashboard"
             className={`
@@ -36,17 +34,6 @@ export default function Navbar() {
             `}
           >
             Dashboard
-          </Link>
-
-          <Link
-            href="/new"
-            className={`
-              px-4 py-2 rounded-lg text-sm transition-all
-              hover:bg-slate-100 hover:text-indigo-600
-              ${isActive("/new")}
-            `}
-          >
-            New Entry
           </Link>
 
           {/* If user is NOT logged in */}
@@ -70,14 +57,25 @@ export default function Navbar() {
 
           {/* If user IS logged in → Show Logout */}
           {session && (
-            <button
-              onClick={() => signOut({ callbackUrl: "/" })}
-              className="px-4 py-2 text-sm rounded-lg bg-red-500 text-white hover:bg-red-600 transition-all shadow-sm"
-            >
-              Logout
-            </button>
+            <>
+              <Link
+                href="/new"
+                className={`
+              px-4 py-2 rounded-lg text-sm transition-all
+              hover:bg-slate-100 hover:text-indigo-600
+              ${isActive("/new")}
+            `}
+              >
+                New Entry
+              </Link>
+              <button
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="px-4 py-2 text-sm rounded-lg bg-red-500 text-white hover:bg-red-600 transition-all shadow-sm"
+              >
+                Logout
+              </button>
+            </>
           )}
-
         </nav>
       </div>
     </header>

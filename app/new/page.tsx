@@ -15,20 +15,20 @@ export default function NewEntryPage() {
     setError("");
 
     // ------- CALL SERVER (Groq) FOR SUMMARY -------
-  const summaryRes = await fetch("/api/ai/summarize", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text: content }),
-  });
-  const { summary } = await summaryRes.json();
+    const summaryRes = await fetch("/api/ai/summarize", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: content }),
+    });
+    const { summary } = await summaryRes.json();
 
-  // ------- CALL SERVER (Groq) FOR MOOD -------
-  const moodRes = await fetch("/api/ai/mood", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text: content }),
-  });
-  const { mood } = await moodRes.json();
+    // ------- CALL SERVER (Groq) FOR MOOD -------
+    const moodRes = await fetch("/api/ai/mood", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: content }),
+    });
+    const { mood } = await moodRes.json();
 
     // 2) Save to database
     const res = await fetch("/api/entries/new", {
@@ -50,7 +50,29 @@ export default function NewEntryPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">New Journal Entry</h1>
+      <div className="flex items-center gap-3 mb-6">
+        <button
+          onClick={() => router.back()}
+          className="p-2 rounded-full hover:bg-slate-200 transition-colors"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={2}
+            stroke="currentColor"
+            className="w-6 h-6 text-gray-700"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 19.5L8.25 12l7.5-7.5"
+            />
+          </svg>
+        </button>
+
+        <h1 className="text-2xl font-bold">New Journal Entry</h1>
+      </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <textarea
