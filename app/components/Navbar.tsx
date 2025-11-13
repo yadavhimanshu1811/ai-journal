@@ -2,46 +2,66 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// If you have shadcn Button, uncomment the import below
-// import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
   const pathname = usePathname();
 
+  const isActive = (path: string) =>
+    pathname === path ? "text-indigo-600 font-semibold" : "text-gray-600";
+
   return (
-    <header className="w-full bg-white border-b">
-      <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-3">
-          <div className="rounded-md bg-gradient-to-r from-indigo-500 to-pink-500 text-white w-10 h-10 flex items-center justify-center font-bold">
+    <header className="w-full backdrop-blur-md bg-white/70 border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+      <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+        
+        {/* Left Brand */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="rounded-xl bg-gradient-to-br from-indigo-500 to-pink-500 text-white w-10 h-10 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
             AI
           </div>
-          <div className="text-lg font-semibold">AI Journal</div>
+          <div className="text-xl font-bold tracking-tight group-hover:text-indigo-600 transition-colors">
+            AI Journal
+          </div>
         </Link>
 
-        <nav className="flex items-center gap-3">
+        {/* Nav Buttons */}
+        <nav className="flex items-center gap-2">
+          
           <Link
             href="/dashboard"
-            className={`px-3 py-2 rounded-md ${
-              pathname === "/dashboard" ? "bg-slate-100" : "hover:bg-slate-50"
-            }`}
+            className={`
+              px-4 py-2 rounded-lg text-sm transition-all 
+              hover:bg-slate-100 hover:text-indigo-600
+              ${isActive("/dashboard")}
+            `}
           >
             Dashboard
           </Link>
 
-          <Link href="/new" className="px-3 py-2 rounded-md hover:bg-slate-50">
+          <Link
+            href="/new"
+            className={`
+              px-4 py-2 rounded-lg text-sm transition-all
+              hover:bg-slate-100 hover:text-indigo-600
+              ${isActive("/new")}
+            `}
+          >
             New Entry
           </Link>
 
-          {/* fallback simple CTA if shadcn Button not present */}
           <Link
             href="/login"
-            className="inline-block px-3 py-1 rounded-md bg-indigo-600 text-white"
+            className="px-4 py-2 text-sm rounded-lg border border-gray-300 text-gray-700 hover:border-indigo-500 hover:text-indigo-600 transition-all"
           >
             Sign in
           </Link>
-          <Link href="/signup" className="px-3 py-1 rounded-md bg-accent">
+
+          <Link
+            href="/signup"
+            className="px-4 py-2 text-sm rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition-all shadow-sm"
+          >
             Sign up
           </Link>
+
         </nav>
       </div>
     </header>
