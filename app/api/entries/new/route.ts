@@ -3,7 +3,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import Entry from "@/models/Entry";
 import { connectToDatabase } from "@/lib/db";
-import { summarizeText, detectMood } from "@/lib/huggingface";
 
 export async function POST(request: Request) {
   try {
@@ -12,16 +11,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
     }
 
-    const { content } = await request.json();
+    const { content, summary, mood } = await request.json();
     if (!content) {
       return NextResponse.json({ error: "Content required" }, { status: 400 });
     }
 
     await connectToDatabase();
-
-    // AI tasks
-    const summary = await summarizeText(content);
-    const mood = await detectMood(content);
 
     const entry = await Entry.create({
       userId: session.user?.email,

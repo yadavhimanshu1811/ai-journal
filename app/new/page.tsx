@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { summarizeText, detectMood } from "@/lib/ai";
 
 export default function NewEntryPage() {
   const router = useRouter();
@@ -14,10 +15,15 @@ export default function NewEntryPage() {
     setLoading(true);
     setError("");
 
+    // 1) Generate AI locally (browser)
+    const summary = await summarizeText(content);
+    const mood = await detectMood(content);
+
+    // 2) Save to database
     const res = await fetch("/api/entries/new", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content }),
+      body: JSON.stringify({ content, summary, mood }),
     });
 
     const data = await res.json();
