@@ -19,9 +19,9 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Dashboard</h1>
+      <h1 className="text-3xl font-bold m-1">Dashboard</h1>
 
-      <p className="text-muted-foreground">
+      <p className="text-muted-foreground m-2 text-xs">
         Logged in as: <strong>{session.user?.email}</strong>
       </p>
 
