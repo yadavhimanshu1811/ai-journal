@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
-interface Entry{
-    _id: string;
-    content: string;
-    mood: string;
-    createdAt?: string
+interface Entry {
+  _id: string;
+  content: string;
+  mood: string;
+  createdAt?: string;
 }
 
 const ListDisplay = () => {
@@ -24,6 +24,20 @@ const ListDisplay = () => {
       setList(result.list);
     }
     setLoading(false);
+  };
+
+  const handleDelete = async (id: string) => {
+    const response = await fetch("api/entries/deleteItem", {
+      method: "delete",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+    });
+
+    if(response.ok){
+        getList()
+    }else{
+        alert("something went wrong");
+    }
   };
 
   useEffect(() => {
@@ -57,10 +71,36 @@ const ListDisplay = () => {
             >
               {entry.mood}
             </span>
+            <div className="flex items-center">
+              <span className="text-xs text-gray-400">
+                {entry.createdAt &&
+                  new Date(entry.createdAt).toLocaleDateString()}
+              </span>
 
-            <span className="text-xs text-gray-400">
-              {entry.createdAt && new Date(entry.createdAt).toLocaleDateString()}
-            </span>
+              <span
+                className="cursor-pointer text-gray-400 hover:text-red-600 transition-colors mb-1 ml-1"
+                onClick={(e) => {
+                  e.preventDefault(); // stops the link navigation
+                  e.stopPropagation(); // stops click bubbling
+                  handleDelete(entry._id); // your delete function
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.8"
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M6 7h12m-9 0V4h6v3m1 0v13a2 2 0 01-2 2H9a2 2 0 01-2-2V7h10z"
+                  />
+                </svg>
+              </span>
+            </div>
           </div>
 
           {/* Content Preview */}
