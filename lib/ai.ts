@@ -1,34 +1,57 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Groq from "groq-sdk";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
 
-// -------- SUMMARY ----------
+// ---------- SUMMARY ----------
 export async function summarizeText(text: string) {
   try {
-    const result = await model.generateContent(
-      `Summarize the following journal entry in 2-3 sentences. Be concise and clear.\n\n${text}`
-    );
-    return result.response.text();
+    const response = await groq.chat.completions.create({
+      model: "llama-3.1-8b-instant",
+      messages: [
+        {
+          role: "system",
+          content: "Summarize the text in 2–3 concise sentences.",
+        },
+        {
+          role: "user",
+          content: text,
+        },
+      ],
+      max_tokens: 150,
+    });
+
+    return response.choices[0].message.content;
   } catch (err) {
     console.log("SUMMARY ERROR:", err);
     return "Summary unavailable.";
   }
 }
 
-// -------- SENTIMENT ----------
+// ---------- MOOD ----------
 export async function detectMood(text: string) {
   try {
-    const result = await model.generateContent(
-      `Classify the mood of this journal entry as exactly one word: positive, negative, or neutral.\n\n${text}`
-    );
-    const label = result.response.text().toLowerCase();
+    const response = await groq.chat.completions.create({
+      model: "llama-3.1-8b-instant",
+      messages: [
+        {
+          role: "system",
+          content: "Respond with ONLY one word: positive, negative, or neutral.",
+        },
+        {
+          role: "user",
+          content: text,
+        },
+      ],
+      max_tokens: 5,
+    });
 
-    if (label.includes("positive")) return "positive";
-    if (label.includes("negative")) return "negative";
+    const out = response.choices[0].message.content?.toLowerCase() || "";
+
+    if (out.includes("positive")) return "positive";
+    if (out.includes("negative")) return "negative";
     return "neutral";
   } catch (err) {
-    console.log("SENTIMENT ERROR:", err);
+    console.log("MOOD ERROR:", err);
     return "neutral";
   }
 }

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { summarizeText, detectMood } from "@/lib/ai";
 
 export default function NewEntryPage() {
   const router = useRouter();
@@ -15,9 +14,21 @@ export default function NewEntryPage() {
     setLoading(true);
     setError("");
 
-    // 1) Generate AI locally (browser)
-    const summary = await summarizeText(content);
-    const mood = await detectMood(content);
+    // ------- CALL SERVER (Groq) FOR SUMMARY -------
+  const summaryRes = await fetch("/api/ai/summarize", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: content }),
+  });
+  const { summary } = await summaryRes.json();
+
+  // ------- CALL SERVER (Groq) FOR MOOD -------
+  const moodRes = await fetch("/api/ai/mood", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: content }),
+  });
+  const { mood } = await moodRes.json();
 
     // 2) Save to database
     const res = await fetch("/api/entries/new", {
