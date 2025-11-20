@@ -3,28 +3,28 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
+import { Notebook } from "lucide-react";
 
 export default function Navbar() {
   const pathname = usePathname();
   const { data: session } = useSession();
 
   const isActive = (path: string) => {
-  const current = pathname === "/" ? "/dashboard" : pathname;
-  return current === path
-    ? "text-indigo-600 font-semibold"
-    : "text-gray-600";
-};
+    const current = pathname === "/" ? "/dashboard" : pathname;
+    return current === path ? "text-indigo-600 font-semibold" : "text-gray-600";
+  };
 
   return (
     <header className="w-full backdrop-blur-md bg-white/70 border-b border-slate-200 sticky top-0 z-50 shadow-sm">
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="rounded-xl bg-gradient-to-br from-indigo-500 to-pink-500 text-white w-10 h-10 flex items-center justify-center font-bold shadow-sm group-hover:scale-110 transition-transform">
-            AI
+          <div className="rounded-xl bg-gradient-to-br from-indigo-500 to-pink-500 text-white w-10 h-10 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+            <Notebook className="w-5 h-5" />
           </div>
-          <div className="text-xl font-bold tracking-tight group-hover:text-indigo-600 transition-colors">
-            Daily Journal
+          <div className="text-xl font-bold tracking-tight group-hover:text-indigo-600 transition-colors flex flex-col ">
+            <span>Daily Journal </span>
+            <span className="text-[10px] text-indigo-500"> (Powered by Groq AI)</span>
           </div>
         </Link>
 

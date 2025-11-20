@@ -4,7 +4,7 @@ import Providers from "./components/Providers";
 import Navbar from "./components/Navbar";
 
 export const metadata: Metadata = {
-  title: "AI Journal",
+  title: "Daily Journal",
   description: "AI powered personal journal",
 };
 
