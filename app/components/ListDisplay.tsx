@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
+import { Pencil } from "lucide-react";
 
 interface Entry {
   _id: string;
@@ -33,11 +33,15 @@ const ListDisplay = () => {
       body: JSON.stringify({ id }),
     });
 
-    if(response.ok){
-        getList()
-    }else{
-        alert("something went wrong");
+    if (response.ok) {
+      getList();
+    } else {
+      alert("something went wrong");
     }
+  };
+
+  const handleEdit = (id: string) => {
+    alert("Edit functionality: Work in progress");
   };
 
   useEffect(() => {
@@ -49,10 +53,9 @@ const ListDisplay = () => {
   ) : errorMessage ? (
     <div className="text-center py-10 text-red-500">{errorMessage}</div>
   ) : list.length ? (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5 mt-5">
       {list.map((entry, index) => (
-        <Link
-          href={`/entry/${entry._id}`}
+        <div
           key={entry._id}
           className="block bg-white border border-slate-200 rounded-xl p-5 shadow-sm 
                      hover:shadow-md hover:border-indigo-300 hover:scale-[1.02] transition-all"
@@ -100,12 +103,22 @@ const ListDisplay = () => {
                   />
                 </svg>
               </span>
+              <span
+                className="cursor-pointer text-gray-400 hover:text-blue-600 transition-colors mb-1 ml-1"
+                onClick={(e) => {
+                  e.preventDefault(); // prevent navigation
+                  e.stopPropagation(); // stop bubbling
+                  handleEdit(entry._id); // your edit function
+                }}
+              >
+                <Pencil size={16} strokeWidth={2} />
+              </span>
             </div>
           </div>
 
           {/* Content Preview */}
-          <p className="text-gray-800 text-sm line-clamp-3">{entry.content}</p>
-        </Link>
+          <p className="text-gray-800 text-sm line-clamp-5">{entry.content}</p>
+        </div>
       ))}
     </div>
   ) : (
