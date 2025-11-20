@@ -1,3 +1,5 @@
+//https://next-auth.js.org/getting-started/example
+
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthOptions } from "next-auth";
 import bcrypt from "bcryptjs";

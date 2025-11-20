@@ -36,9 +36,9 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 
-IMPORTANT FILES:
+IMPORTANT FILES: to revise
 1. lib/ai.ts: takes any text, sends it to the Groq API, and asks the Llama-3.1-8B-Instant model to summarize it in 2–3 sentences and predict the mood
 2. lib/db.ts: Connect to database, avoids creating multiple MongoDB connections which would otherwise cause errors and slowdowns.
-3. app/api/auth/[...nextauth]/route.ts: 
-4. lib/auth.ts: authOptions: NextAuthOptions
+3. lib/auth.ts: authOptions: NextAuthOptions
+4. app/api/auth/[...nextauth]/route.ts: This is the Next.js Route Handler for authentication using NextAuth.
 5. 
