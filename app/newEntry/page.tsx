@@ -17,6 +17,12 @@ export default function NewEntryPage() {
     setLoading(true);
     setError("");
 
+    if(content.trim().length < 10){
+      setError("Write atleast 10 letters");
+      setLoading(false);
+      return;
+    }
+
     // ------- CALL SERVER (Groq) FOR SUMMARY -------
     const summaryRes = await fetch("/api/ai/summarize", {
       method: "POST",
