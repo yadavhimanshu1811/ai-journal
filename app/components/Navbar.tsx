@@ -8,8 +8,12 @@ export default function Navbar() {
   const pathname = usePathname();
   const { data: session } = useSession();
 
-  const isActive = (path: string) =>
-    pathname === path ? "text-indigo-600 font-semibold" : "text-gray-600";
+  const isActive = (path: string) => {
+  const current = pathname === "/" ? "/dashboard" : pathname;
+  return current === path
+    ? "text-indigo-600 font-semibold"
+    : "text-gray-600";
+};
 
   return (
     <header className="w-full backdrop-blur-md bg-white/70 border-b border-slate-200 sticky top-0 z-50 shadow-sm">
