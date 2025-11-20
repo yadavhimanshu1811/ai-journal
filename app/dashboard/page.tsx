@@ -26,7 +26,7 @@ export default async function DashboardPage() {
       </p>
 
       <Link
-        href="/new"
+        href="/newEntry"
         className="inline-block px-4 py-2 bg-primary text-primary-foreground rounded-md"
       >
         Create New Entry

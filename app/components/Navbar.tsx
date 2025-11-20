@@ -59,11 +59,11 @@ export default function Navbar() {
           {session && (
             <>
               <Link
-                href="/new"
+                href="/newEntry"
                 className={`
               px-4 py-2 rounded-lg text-sm transition-all
               hover:bg-slate-100 hover:text-indigo-600
-              ${isActive("/new")}
+              ${isActive("/newEntry")}
             `}
               >
                 New Entry

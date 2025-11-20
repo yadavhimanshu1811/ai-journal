@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function NewEntryPage() {
+  const { data: session } = useSession();
   const router = useRouter();
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
@@ -48,7 +51,7 @@ export default function NewEntryPage() {
     router.push("/dashboard");
   }
 
-  return (
+  return (session ?
     <div className="space-y-6">
       <div className="flex items-center gap-3 mb-6">
         <button
@@ -91,6 +94,11 @@ export default function NewEntryPage() {
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </form>
-    </div>
+    </div>: <div className="text-center mt-10">
+        <p className="text-lg">You are not logged in.</p>
+        <Link href="/login" className="text-primary underline">
+          Go to Login
+        </Link>
+      </div>
   );
 }
