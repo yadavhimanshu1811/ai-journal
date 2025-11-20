@@ -34,3 +34,11 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+IMPORTANT FILES:
+1. lib/ai.ts: takes any text, sends it to the Groq API, and asks the Llama-3.1-8B-Instant model to summarize it in 2–3 sentences and predict the mood
+2. lib/db.ts: Connect to database, avoids creating multiple MongoDB connections which would otherwise cause errors and slowdowns.
+3. app/api/auth/[...nextauth]/route.ts: 
+4. lib/auth.ts: authOptions: NextAuthOptions
+5. 

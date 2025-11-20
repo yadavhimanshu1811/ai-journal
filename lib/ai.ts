@@ -3,6 +3,7 @@ import Groq from "groq-sdk";
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! });
 
 // ---------- SUMMARY ----------
+//summarizeText(text) takes any text, sends it to the Groq API, and asks the Llama-3.1-8B-Instant model to summarize it in 2–3 sentences.
 export async function summarizeText(text: string) {
   try {
     const response = await groq.chat.completions.create({
