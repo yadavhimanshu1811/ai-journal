@@ -69,7 +69,7 @@ export default function Navbar() {
                 New Entry
               </Link>
               <button
-                onClick={() => signOut({ callbackUrl: "/" })}
+                onClick={() => signOut({ callbackUrl: "/login" })}
                 className="px-4 py-2 text-sm rounded-lg bg-red-500 text-white hover:bg-red-600 transition-all shadow-sm"
               >
                 Logout
