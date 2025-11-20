@@ -24,7 +24,7 @@ export default function Navbar() {
             AI
           </div>
           <div className="text-xl font-bold tracking-tight group-hover:text-indigo-600 transition-colors">
-            AI Journal
+            Daily Journal
           </div>
         </Link>
 
