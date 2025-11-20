@@ -55,6 +55,9 @@ export default function LoginPage() {
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </form>
+      <button onClick={() => signIn("google", { callbackUrl: "/dashboard" })}>
+        Continue with Google
+      </button>
     </div>
   );
 }
