@@ -92,13 +92,13 @@ const ListDisplay = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
-                  stroke-width="1.8"
+                  strokeWidth="1.8"
                   stroke="currentColor"
                   className="w-5 h-5"
                 >
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     d="M6 7h12m-9 0V4h6v3m1 0v13a2 2 0 01-2 2H9a2 2 0 01-2-2V7h10z"
                   />
                 </svg>
