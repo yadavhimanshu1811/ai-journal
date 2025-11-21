@@ -4,7 +4,7 @@ const EntrySchema = new mongoose.Schema(
   {
     userId: { type: String, required: true },
     content: { type: String, required: true },
-    summary: { type: String }, // Fenerate this via AI
+    summary: { type: String }, // Generate this via AI
     mood: { type: String },
   },
   { timestamps: true }
