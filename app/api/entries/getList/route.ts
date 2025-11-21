@@ -13,7 +13,7 @@ export async function GET(request: Request){
 
         await connectToDatabase();
 
-        const list = await Entry.find();
+        const list = await Entry.find({userId: session.user?.email});
         return NextResponse.json({list});
 
     } catch (error) {
